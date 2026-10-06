@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "run_id": "20261012_yolo11n-car_v1",
+  "task": "detection",
+  "model": "yolo11n-car",
+  "weights": "runs/detect/car_v1/weights/best.pt",
+  "weights_sha256": null,
+  "tracker": "bytetrack",
+  "position_method": "median_valid_depth_in_box_center_region",
+  "conf_threshold": 0.25,
+  "created": "2026-10-12T16:40:00Z",
+  "sessions": [
+    "20261006_e7-hallway_r03"
+  ]
+}

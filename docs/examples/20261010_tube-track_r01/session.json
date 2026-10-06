@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "session_id": "20261010_tube-track_r01",
+  "environment": "tube_track",
+  "location": "tube-track",
+  "recorded_start_ns": 1791655200000000000,
+  "recorded_end_ns": 1791655500000000000,
+  "source": {
+    "bag_path": "recordings/20261010_tube-track_r01",
+    "storage": "mcap",
+    "rgb_topic": "/camera/camera/color/image_raw",
+    "rgb_source_encoding": "rgb8",
+    "rgb_info_topic": "/camera/camera/color/camera_info",
+    "depth_topic": "/camera/camera/aligned_depth_to_color/image_raw",
+    "depth_info_topic": "/camera/camera/aligned_depth_to_color/camera_info"
+  },
+  "camera": {
+    "model": "Intel RealSense D435i",
+    "serial": "123456789012",
+    "firmware": "5.16.0.1"
+  },
+  "image": {
+    "width": 640,
+    "height": 480
+  },
+  "depth": {
+    "units": "mm",
+    "invalid_value": 0,
+    "source_depth_scale_m": 0.001,
+    "aligned_to_rgb": true,
+    "aligned_by": "realsense_driver"
+  },
+  "calibration": {
+    "source": "camera_info",
+    "rgb_intrinsics": {
+      "fx": 615.0,
+      "fy": 615.0,
+      "cx": 320.0,
+      "cy": 240.0
+    },
+    "distortion_model": "plumb_bob",
+    "distortion_coeffs": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "depth_to_rgb": {
+      "rotation": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "translation_m": [
+        0.015,
+        0.0,
+        0.0
+      ]
+    },
+    "rgb_to_base_link": null
+  },
+  "pairing": {
+    "max_dt_ns": 10000000,
+    "rgb_frames": 9000,
+    "paired": 9000,
+    "rejected": 0
+  },
+  "extraction": {
+    "tool": "extract-pairs@0.1.0",
+    "date": "2026-10-11T09:00:00Z",
+    "stride": 1
+  }
+}

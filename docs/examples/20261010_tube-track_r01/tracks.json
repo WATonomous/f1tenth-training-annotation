@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "session_id": "20261010_tube-track_r01",
+  "tracks": {
+    "1": {
+      "subtype": "f1tenth",
+      "note": "lead car"
+    },
+    "2": {
+      "subtype": "f1tenth",
+      "note": "chasing car, mostly hidden"
+    }
+  },
+  "boxes": {
+    "20261010_tube-track_r01_000057": [
+      {
+        "line": 0,
+        "track_id": 1,
+        "occluded": false,
+        "truncated": false,
+        "unclipped_xyxy_px": null
+      },
+      {
+        "line": 1,
+        "track_id": 2,
+        "occluded": true,
+        "truncated": false,
+        "unclipped_xyxy_px": null
+      }
+    ]
+  }
+}

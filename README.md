@@ -3,6 +3,10 @@
 WATonomous F1Tenth/RoboRacer data annotation, detection training, and segmentation
 training. Use the familiar `watod` Docker workflow and an ordinary Conda environment.
 
+All data, annotations, and predictions follow the
+[Data Standard](docs/data-standard.md). Read it before writing extraction,
+labeling, or training code.
+
 ## Quickstart
 
 Install Docker Engine and Docker Compose 2.30 or newer (for the optional `gpus`

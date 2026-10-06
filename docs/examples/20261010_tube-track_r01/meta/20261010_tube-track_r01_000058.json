@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "sample_id": "20261010_tube-track_r01_000058",
+  "session_id": "20261010_tube-track_r01",
+  "frame_index": 58,
+  "rgb_timestamp_ns": 1791655201933451000,
+  "depth_timestamp_ns": 1791655201934002000,
+  "pair_dt_ns": 551000,
+  "image": {
+    "width": 640,
+    "height": 480
+  },
+  "depth": {
+    "units": "mm",
+    "invalid_value": 0,
+    "valid_fraction": 0.88
+  },
+  "annotations": {
+    "detection": {
+      "status": "excluded",
+      "generator": "yolo-autolabel@0.2.0",
+      "updated": "2026-10-12T09:46:00Z",
+      "exclusion": {
+        "reason": "motion_blur",
+        "note": "camera shake over a floor seam"
+      },
+      "history": [
+        {
+          "status": "generated",
+          "by": "yolo-autolabel@0.2.0",
+          "date": "2026-10-11T12:00:00Z",
+          "note": null
+        },
+        {
+          "status": "excluded",
+          "by": "jlee",
+          "date": "2026-10-12T09:46:00Z",
+          "note": null
+        }
+      ]
+    },
+    "segmentation": {
+      "status": "excluded",
+      "generator": null,
+      "updated": "2026-10-12T09:46:00Z",
+      "exclusion": {
+        "reason": "motion_blur",
+        "note": "camera shake over a floor seam"
+      },
+      "history": [
+        {
+          "status": "excluded",
+          "by": "jlee",
+          "date": "2026-10-12T09:46:00Z",
+          "note": null
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "session_id": "20261006_e7-hallway_r03",
+  "tracks": {
+    "1": {
+      "subtype": "f1tenth",
+      "note": "white deck, blue lidar"
+    },
+    "2": {
+      "subtype": "rc_car",
+      "note": "red body shell"
+    }
+  },
+  "boxes": {
+    "20261006_e7-hallway_r03_000412": [
+      {
+        "line": 0,
+        "track_id": 1,
+        "occluded": false,
+        "truncated": false,
+        "unclipped_xyxy_px": null
+      },
+      {
+        "line": 1,
+        "track_id": 2,
+        "occluded": false,
+        "truncated": true,
+        "unclipped_xyxy_px": [
+          -42.0,
+          250.0,
+          96.0,
+          318.0
+        ]
+      }
+    ]
+  }
+}

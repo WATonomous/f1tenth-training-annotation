@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "sample_id": "20261006_e7-hallway_r03_000412",
+  "session_id": "20261006_e7-hallway_r03",
+  "frame_index": 412,
+  "rgb_timestamp_ns": 1791311413733412000,
+  "depth_timestamp_ns": 1791311413731205000,
+  "pair_dt_ns": -2207000,
+  "image": {
+    "width": 640,
+    "height": 480
+  },
+  "depth": {
+    "units": "mm",
+    "invalid_value": 0,
+    "valid_fraction": 0.93
+  },
+  "annotations": {
+    "detection": {
+      "status": "corrected",
+      "generator": "yolo-autolabel@0.2.0",
+      "updated": "2026-10-08T10:12:00Z",
+      "exclusion": null,
+      "history": [
+        {
+          "status": "generated",
+          "by": "yolo-autolabel@0.2.0",
+          "date": "2026-10-07T14:00:00Z",
+          "note": null
+        },
+        {
+          "status": "corrected",
+          "by": "mrahman",
+          "date": "2026-10-08T10:12:00Z",
+          "note": "added truncated car at left edge"
+        }
+      ]
+    },
+    "segmentation": {
+      "status": "generated",
+      "generator": "sam2-floor@0.1.0",
+      "updated": "2026-10-07T15:30:00Z",
+      "exclusion": null,
+      "history": [
+        {
+          "status": "generated",
+          "by": "sam2-floor@0.1.0",
+          "date": "2026-10-07T15:30:00Z",
+          "note": null
+        }
+      ]
+    }
+  }
+}

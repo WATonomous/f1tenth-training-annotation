@@ -1,0 +1,1 @@
+{"sample_id": "20261006_e7-hallway_r03_000412", "rgb_timestamp_ns": 1791311413733412000, "detections": [{"track_id": 7, "class_id": 0, "bbox_xywhn": [0.5121, 0.619, 0.2298, 0.184], "conf": 0.94, "position_m": [0.21, 0.08, 2.47]}, {"track_id": 8, "class_id": 0, "bbox_xywhn": [0.0731, 0.5902, 0.1462, 0.1388], "conf": 0.61, "position_m": [-1.18, 0.07, 3.05]}]}
