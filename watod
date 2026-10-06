@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+# Adapted from WATonomous/wato_f1tenth main at 4aa2c4a.
+# Changes: isolated naming, Jazzy/Conda services, optional GPUs, quoted arguments.
+set -euo pipefail
+
+MONO_DIR="$(dirname "$(realpath "${BASH_SOURCE[0]}")")"
+MODULES_DIR="$MONO_DIR/modules"
+
+usage() {
+    cat <<'EOF'
+Usage: ./watod [OPTIONS] [docker compose COMMAND...]
+  -v, --verbose                  Show the resolved configuration
+  -t, --terminal SERVICE         Open a Bash shell in a running service
+  -d, --setup-dev-env SERVICE    Configure VS Code for the container workspace
+  -c, --setup-completion         Print the shell completion setup command
+  -h, --help                     Show this help
+
+Examples:
+  ./watod build
+  ./watod up -d
+  ./watod -t robot_dev
+  ./watod run --rm robot_dev python --version
+  ./watod config
+  ./watod down
+EOF
+}
+
+VERBOSE=false
+START_TERMINAL=false
+SETUP_DEV_ENVIRONMENT=false
+SERVICE_NAME=""
+while (($#)); do
+    case "$1" in
+        -h|--help|help) usage; exit 0 ;;
+        -v|--verbose) VERBOSE=true; shift ;;
+        -c|--setup-completion)
+            printf 'source %q\n' "$MONO_DIR/watod_scripts/watod-completion.bash"
+            exit 0
+            ;;
+        -t|--terminal|-d|--setup-dev-env)
+            if (($# < 2)) || [[ "$2" == -* ]]; then
+                printf 'Expected a service name after %s\n' "$1" >&2
+                exit 1
+            fi
+            if [[ "$1" == -t || "$1" == --terminal ]]; then
+                START_TERMINAL=true
+            else
+                SETUP_DEV_ENVIRONMENT=true
+            fi
+            SERVICE_NAME="$2"
+            shift 2
+            ;;
+        *) break ;;
+    esac
+done
+
+if (($# == 0)) && ! $START_TERMINAL && ! $SETUP_DEV_ENVIRONMENT; then
+    usage
+    exit 0
+fi
+
+# Load repository defaults first; local settings can override individual fields.
+source "$MONO_DIR/watod-config.sh"
+if [[ -f "$MONO_DIR/watod-config.local.sh" ]]; then
+    source "$MONO_DIR/watod-config.local.sh"
+fi
+source "$MONO_DIR/watod_scripts/watod-setup-docker-env.sh"
+
+COMPOSE_ARGS=(--project-directory "$MONO_DIR" --env-file "$MODULES_DIR/.env"
+    --project-name "$COMPOSE_PROJECT_NAME" --profile "$MODE_OF_OPERATION")
+read -r -a MODULE_NAMES <<< "$ACTIVE_MODULES"
+for module in "${MODULE_NAMES[@]}"; do
+    module_file="$MODULES_DIR/docker-compose.$module.yaml"
+    if [[ ! -f "$module_file" ]]; then
+        printf 'Unknown module: %s\n' "$module" >&2
+        exit 1
+    fi
+    COMPOSE_ARGS+=(-f "$module_file")
+done
+if [[ "$ENABLE_GPU" == true ]]; then
+    COMPOSE_ARGS+=(-f "$MODULES_DIR/docker-compose.gpu.yaml")
+fi
+
+run_compose() {
+    DOCKER_BUILDKIT="${DOCKER_BUILDKIT:-1}" docker compose "${COMPOSE_ARGS[@]}" "$@"
+}
+
+if $VERBOSE; then
+    printf 'Project: %s\nBranch: %s\nImage: %s:%s\nPlatform: %s\nGPU: %s\n' \
+        "$COMPOSE_PROJECT_NAME" "$BRANCH" "$ROBOT_IMAGE" "$TAG" "$PLATFORM" "$ENABLE_GPU"
+fi
+if $SETUP_DEV_ENVIRONMENT; then
+    source "$MONO_DIR/watod_scripts/watod-setup-dev-env.sh"
+fi
+if (($#)); then
+    if $START_TERMINAL && [[ "$1" == up ]]; then
+        run_compose "$@" -d
+    else
+        run_compose "$@"
+    fi
+fi
+if $START_TERMINAL; then
+    run_compose exec "$SERVICE_NAME" /bin/bash
+fi

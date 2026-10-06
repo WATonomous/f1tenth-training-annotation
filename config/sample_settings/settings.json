@@ -1,0 +1,7 @@
+{
+  "python.defaultInterpreterPath": "/opt/conda/envs/training/bin/python",
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "files.watcherExclude": {
+    "**/src/data/**": true
+  }
+}

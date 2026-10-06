@@ -1,0 +1,13 @@
+.git
+.vscode
+modules/.env
+watod-config.local.sh
+src/data
+**/__pycache__
+**/.pytest_cache
+**/*.db3
+**/*.mcap
+**/*.pt
+**/*.pth
+**/*.onnx
+**/*.engine

@@ -1,0 +1,12 @@
+# Added only when ENABLE_GPU=true; CPU hosts do not request GPU devices.
+services:
+  robot:
+    gpus: all
+    environment:
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility
+  robot_dev:
+    gpus: all
+    environment:
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility

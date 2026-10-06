@@ -1,0 +1,60 @@
+# Adapted from WATonomous/wato_f1tenth main at 4aa2c4a.
+# Changes: Jazzy/Conda workspace with four development mounts and no car nodes.
+services:
+  robot:
+    build: &robot_build
+      context: "${MONO_DIR:?}"
+      dockerfile: docker/robot/robot.Dockerfile
+      target: build
+      args:
+        BASE_IMAGE: "${BASE_IMAGE_OVERRIDE:?}"
+        HOST_UID: "${HOST_UID:?}"
+        HOST_GID: "${HOST_GID:?}"
+    image: "${ROBOT_IMAGE:?}:${TAG:?}"
+    platform: "linux/${PLATFORM:?}"
+    profiles: [deploy]
+    init: true
+    working_dir: /workspace
+    command: [sleep, infinity]
+    volumes:
+      - type: bind
+        source: "${DATA_DIR:?}"
+        target: /workspace/src/data
+        bind:
+          create_host_path: false
+    environment: &workspace_environment
+      PIP_CACHE_DIR: /workspace/src/data/.cache/pip
+      HF_HOME: /workspace/src/data/.cache/huggingface
+      TORCH_HOME: /workspace/src/data/.cache/torch
+      CONDA_PKGS_DIRS: /workspace/src/data/.cache/conda
+
+  robot_dev:
+    build: *robot_build
+    image: "${ROBOT_IMAGE:?}:dev_${TAG:?}"
+    platform: "linux/${PLATFORM:?}"
+    profiles: [develop]
+    init: true
+    working_dir: /workspace
+    command: [sleep, infinity]
+    volumes:
+      - type: bind
+        source: "${DATA_DIR:?}"
+        target: /workspace/src/data
+        bind:
+          create_host_path: false
+      - type: bind
+        source: "${MONO_DIR:?}/src/annotation-pipeline"
+        target: /workspace/src/annotation-pipeline
+        bind:
+          create_host_path: false
+      - type: bind
+        source: "${MONO_DIR:?}/src/segmentation-training"
+        target: /workspace/src/segmentation-training
+        bind:
+          create_host_path: false
+      - type: bind
+        source: "${MONO_DIR:?}/src/detection-training"
+        target: /workspace/src/detection-training
+        bind:
+          create_host_path: false
+    environment: *workspace_environment
